@@ -8,10 +8,10 @@
 			"options": {
 				"cwd": "${workspaceFolder}",
 				"statusbar": {
-					"label": "$(package) Install Deps",
+					"label": "$(package) Install Dependencies",
 					"running": {
 						"color": "#4CAF50",
-						"label": "$(sync) Installing Deps"
+						"label": "$(sync) Installing Dependencies..."
 					},
 					"detail": "Install Project Dependencies (Frontend + Proxy)"
 				}
@@ -36,39 +36,39 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Start Backend",
+			"label": "Start Proxy Server",
 			"type": "shell",
 			"command": "node server.js",
 			"options": {
 				"cwd": "${workspaceFolder}/proxy-server",
 				"statusbar": {
-					"label": "$(run) Backend",
+					"label": "$(run) Start Proxy Server",
 					"running": {
 						"color": "#22d622",
-						"label": "$(triangle-right) Backend"
+						"label": "$(triangle-right) Proxy Server is Running"
 					},
-					"detail": "Start Backend Server"
+					"detail": "Start Proxy Server"
 				}
 			},
 			"isBackground": true,
 			"problemMatcher": []
 		},
 		{
-			"label": "Start Full Stack",
+			"label": "Start Frontend + Proxy Server",
 			"type": "shell",
-			"command": "echo Starting Full Stack...",
-			"dependsOn": ["Start Frontend", "Start Backend"],
+			"command": "echo Starting Frontend + Proxy Server...",
+			"dependsOn": ["Start Frontend", "Start Proxy Server"],
 			"dependsOrder": "parallel",
 			"isBackground": true,
 			"problemMatcher": [],
 			"options": {
 				"statusbar": {
-					"label": "$(ruby) Full Stack",
+					"label": "$(ruby) Start Frontend + Proxy Server",
 					"running": {
 						"color": "#f7ca02",
-						"label": "$(triangle-right) Full Stack"
+						"label": "$(triangle-right) Started Frontend + Proxy Server"
 					},
-					"detail": "Start Frontend and Backend"
+					"detail": "Start Frontend + Proxy Server"
 				}
 			}
 		},
