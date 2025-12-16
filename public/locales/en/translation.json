@@ -1,6 +1,8 @@
 {
-	"helloWorld": "Hello, World!",
 	"common": {
 		"selectLanguage": "Select Language"
+	},
+	"epgList": {
+		"noInformationAvailable": "No Information available"
 	}
 }

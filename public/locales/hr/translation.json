@@ -1,6 +1,8 @@
 {
-	"helloWorld": "Pozdrav, svijete!",
 	"common": {
 		"selectLanguage": "Odaberi jezik"
+	},
+	"epgList": {
+		"noInformationAvailable": "Nema dostupnih informacija"
 	}
 }

@@ -1,3 +1,5 @@
+import { normalizeProgrammeTime } from '@/shared/utils/normaliseProgrammeTime';
+
 import { Channel, NormalizedChannel, Programme } from '@/shared/types/types';
 
 export const mapProgrammesToChannels = (data: any): NormalizedChannel[] => {
@@ -11,16 +13,18 @@ export const mapProgrammesToChannels = (data: any): NormalizedChannel[] => {
 			icon: ch.icon?.['@attributes']?.src ?? ''
 		};
 	});
+
 	const normalized: Record<string, NormalizedChannel> = {};
 	Object.values(channels).forEach(ch => {
 		normalized[ch.id] = { ...ch, programmes: [] };
 	});
+
 	data.programme.forEach((prog: any) => {
 		const channelId = prog['@attributes'].channel;
 		const programme: Programme = {
 			channelId,
-			start: prog['@attributes'].start,
-			stop: prog['@attributes'].stop,
+			start: normalizeProgrammeTime(prog['@attributes'].start),
+			stop: normalizeProgrammeTime(prog['@attributes'].stop),
 			title: prog.title?.['#text'] ?? '',
 			desc: prog.desc?.['#text'] ?? ''
 		};
@@ -28,5 +32,6 @@ export const mapProgrammesToChannels = (data: any): NormalizedChannel[] => {
 			normalized[channelId].programmes.push(programme);
 		}
 	});
+
 	return Object.values(normalized);
 };
