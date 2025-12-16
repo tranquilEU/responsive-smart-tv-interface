@@ -4,7 +4,7 @@
 		{
 			"label": "Install Dependencies",
 			"type": "shell",
-			"command": "pnpm install",
+			"command": "pnpm install && pnpm install --prefix proxy-server",
 			"options": {
 				"cwd": "${workspaceFolder}",
 				"statusbar": {
@@ -13,27 +13,64 @@
 						"color": "#4CAF50",
 						"label": "$(sync) Installing Deps"
 					},
-					"detail": "Install Project Dependencies"
+					"detail": "Install Project Dependencies (Frontend + Proxy)"
 				}
 			}
 		},
 		{
-			"label": "Start App",
+			"label": "Start Frontend",
 			"type": "shell",
 			"command": "pnpm run start",
 			"options": {
 				"cwd": "${workspaceFolder}",
 				"statusbar": {
-					"label": "$(run) Start App",
+					"label": "$(run) Start Frontend",
 					"running": {
 						"color": "#22C1D6",
 						"label": "$(triangle-right) App is Running"
 					},
-					"detail": "Start App"
+					"detail": "Start Frontend"
 				}
 			},
 			"isBackground": true,
 			"problemMatcher": []
+		},
+		{
+			"label": "Start Backend",
+			"type": "shell",
+			"command": "node server.js",
+			"options": {
+				"cwd": "${workspaceFolder}/proxy-server",
+				"statusbar": {
+					"label": "$(run) Backend",
+					"running": {
+						"color": "#22d622",
+						"label": "$(triangle-right) Backend"
+					},
+					"detail": "Start Backend Server"
+				}
+			},
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Start Full Stack",
+			"type": "shell",
+			"command": "echo Starting Full Stack...",
+			"dependsOn": ["Start Frontend", "Start Backend"],
+			"dependsOrder": "parallel",
+			"isBackground": true,
+			"problemMatcher": [],
+			"options": {
+				"statusbar": {
+					"label": "$(ruby) Full Stack",
+					"running": {
+						"color": "#f7ca02",
+						"label": "$(triangle-right) Full Stack"
+					},
+					"detail": "Start Frontend and Backend"
+				}
+			}
 		},
 		{
 			"label": "Lint",
