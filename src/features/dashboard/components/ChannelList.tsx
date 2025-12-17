@@ -1,4 +1,6 @@
-import { Fragment } from 'react/jsx-runtime';
+import { AutoSizer, List } from 'react-virtualized';
+
+import { ChannelImage } from '@/features/dashboard/components/ChannelImage';
 
 import { Button } from '@/shared/components/ui/button';
 
@@ -27,41 +29,62 @@ export const ChannelList: React.FC<Props> = ({
 		onPanelSwitch
 	);
 
-	return (
-		<div className="md:col-span-2 p-2 gap-2 flex flex-col">
-			{channels.map((ch, index) => {
-				const isActive = ch.id === selectedChannel;
-				return (
-					<div className="flex" key={ch.id}>
-						<Button
-							variant={selectedChannel === ch.id ? 'default' : 'ghost'}
-							size={'lg'}
-							className={
-								'p-2 cursor-pointer w-full h-10 bg-transparent focus:bg-transparent'
-							}
-							ref={el => {
-								itemRefs.current[index] = el;
-								if (index === 0 && el) firstItemRef.current = el;
-							}}
-							tabIndex={index === focusIndex ? 0 : -1}
-							onKeyDown={handleKeyDown}
-							onClick={() => onSelectChannel(ch.id)}
-						>
-							<div className="flex items-center justify-start gap-2 w-full">
-								<div className="w-10 h-10 flex items-center justify-center rounded">
-									<img
-										src={ch.icon}
-										alt={ch.name}
-										className="w-full h-full object-contain"
-									/>
-								</div>
-								<span>{index + 1}</span>
-								<span className="truncate">{ch.name}</span>
-							</div>
-						</Button>
+	const rowRenderer = ({
+		index,
+		key,
+		style
+	}: {
+		index: number;
+		key: string;
+		style: React.CSSProperties;
+	}) => {
+		const ch = channels[index];
+		return (
+			<div key={key} style={style} className="flex">
+				<Button
+					variant={selectedChannel === ch.id ? 'default' : 'ghost'}
+					size="lg"
+					className="items-center w-full h-10 bg-transparent focus:bg-transparent"
+					ref={el => {
+						itemRefs.current[index] = el;
+						if (index === 0 && el) firstItemRef.current = el;
+					}}
+					tabIndex={index === focusIndex ? 0 : -1}
+					onKeyDown={handleKeyDown}
+					onClick={() => onSelectChannel(ch.id)}
+				>
+					<div className="flex items-center justify-start gap-2 w-full">
+						<div className="w-10 h-10 flex items-center justify-center rounded">
+							<ChannelImage
+								src={ch.icon}
+								alt={ch.name}
+								fallback={
+									<span className="text-sm font-bold">{ch.name[0]}</span>
+								}
+							/>
+						</div>
+						<span>{index + 1}</span>
+						<span className="truncate">{ch.name}</span>
 					</div>
-				);
-			})}
+				</Button>
+			</div>
+		);
+	};
+
+	return (
+		<div className="md:col-span-2 p-2 h-full">
+			<AutoSizer>
+				{({ height, width }) => (
+					<List
+						width={width}
+						height={height}
+						rowCount={channels.length}
+						rowHeight={56}
+						rowRenderer={rowRenderer}
+						className="overflow-y-auto scrollbar-hidden"
+					/>
+				)}
+			</AutoSizer>
 		</div>
 	);
 };

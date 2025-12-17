@@ -1,3 +1,5 @@
+import { AutoSizer, List } from 'react-virtualized';
+
 import { Button } from '@/shared/components/ui/button';
 
 import { useArrowNavigation } from '@/shared/hooks/useArrowNavigation';
@@ -32,32 +34,56 @@ export const DatePickerList: React.FC<Props> = ({
 	const uniqueDates = Array.from(new Set(dates)).sort();
 	const todayStr = new Date().toISOString().slice(0, 10);
 
-	return (
-		<div className="md:col-span-1 gap-2 p-2 flex flex-col">
-			{uniqueDates.map((date, index) => {
-				const isSelected = selectedDate === date;
-				const isToday = todayStr === date;
+	// Row renderer for react-virtualized
+	const rowRenderer = ({
+		index,
+		key,
+		style
+	}: {
+		index: number;
+		key: string;
+		style: React.CSSProperties;
+	}) => {
+		const date = uniqueDates[index];
+		const isSelected = selectedDate === date;
+		const isToday = todayStr === date;
 
-				return (
-					<Button
-						key={date}
-						variant={isSelected ? 'default' : 'ghost'}
-						className=" flex items-center relative w-14 h-10 bg-transparent focus:bg-transparent"
-						ref={el => {
-							itemRefs.current[index] = el;
-							if (index === 0 && el) firstItemRef.current = el;
-						}}
-						tabIndex={index === focusIndex ? 0 : -1}
-						onKeyDown={handleKeyDown}
-						onClick={() => onSelectDate(date)}
-					>
-						{isToday && (
-							<span className="absolute top-1 left-1 w-2 h-2 rounded-full bg-red-500" />
-						)}
-						<span>{formatDate(date)}</span>
-					</Button>
-				);
-			})}
+		return (
+			<div key={key} style={style}>
+				<Button
+					variant={isSelected ? 'default' : 'ghost'}
+					className="flex items-center relative w-14 h-10 bg-transparent focus:bg-transparent"
+					ref={el => {
+						itemRefs.current[index] = el;
+						if (index === 0 && el) firstItemRef.current = el;
+					}}
+					tabIndex={index === focusIndex ? 0 : -1}
+					onKeyDown={handleKeyDown}
+					onClick={() => onSelectDate(date)}
+				>
+					{isToday && (
+						<span className="absolute top-1 left-1 w-2 h-2 rounded-full bg-red-500" />
+					)}
+					<span>{formatDate(date)}</span>
+				</Button>
+			</div>
+		);
+	};
+
+	return (
+		<div className="md:col-span-1 p-2 h-full">
+			<AutoSizer>
+				{({ height, width }) => (
+					<List
+						width={width}
+						height={height}
+						rowCount={uniqueDates.length}
+						rowHeight={56}
+						rowRenderer={rowRenderer}
+						className="overflow-y-auto scrollbar-hidden"
+					/>
+				)}
+			</AutoSizer>
 		</div>
 	);
 };

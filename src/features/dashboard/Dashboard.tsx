@@ -28,7 +28,7 @@ export const Dashboard: React.FC = () => {
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-6 gap-4 p-4 bg-primary/75 h-screen overflow-hidden">
-			<div className="md:col-span-2 overflow-y-auto scrollbar-hidden">
+			<div className="md:col-span-2">
 				{isLoading ? (
 					<AutoFillSkeleton itemHeight={48} RowSkeleton={ChannelRowSkeleton} />
 				) : (
@@ -41,7 +41,7 @@ export const Dashboard: React.FC = () => {
 					/>
 				)}
 			</div>
-			<div className="md:col-span-1 overflow-y-auto scrollbar-hidden">
+			<div className="md:col-span-1">
 				{isLoading ? (
 					<AutoFillSkeleton itemHeight={48} RowSkeleton={DateRowSkeleton} />
 				) : (
@@ -54,7 +54,7 @@ export const Dashboard: React.FC = () => {
 					/>
 				)}
 			</div>
-			<div className="md:col-span-3 overflow-y-auto scrollbar-hidden">
+			<div className="md:col-span-3">
 				{isLoading ? (
 					<AutoFillSkeleton itemHeight={48} RowSkeleton={EPGRowSkeleton} />
 				) : (
