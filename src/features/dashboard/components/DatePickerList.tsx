@@ -33,7 +33,7 @@ export const DatePickerList: React.FC<Props> = ({
 	const todayStr = new Date().toISOString().slice(0, 10);
 
 	return (
-		<div className="md:col-span-1 gap-2 flex flex-col">
+		<div className="md:col-span-1 gap-2 p-2 flex flex-col">
 			{uniqueDates.map((date, index) => {
 				const isSelected = selectedDate === date;
 				const isToday = todayStr === date;
@@ -42,7 +42,7 @@ export const DatePickerList: React.FC<Props> = ({
 					<Button
 						key={date}
 						variant={isSelected ? 'default' : 'ghost'}
-						className=" flex items-center text-white relative w-14 h-10"
+						className=" flex items-center relative w-14 h-10 bg-transparent focus:bg-transparent"
 						ref={el => {
 							itemRefs.current[index] = el;
 							if (index === 0 && el) firstItemRef.current = el;

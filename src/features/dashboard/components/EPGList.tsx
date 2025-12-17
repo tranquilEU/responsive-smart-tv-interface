@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
+import { Button } from '@/shared/components/ui/button';
+
 import { useArrowNavigation } from '@/shared/hooks/useArrowNavigation';
 
 import { formatTime } from '@/shared/helpers/formatTime';
@@ -28,7 +30,7 @@ export const EPGList: React.FC<Props> = ({
 	const now = Date.now();
 
 	return (
-		<div className="md:col-span-3 gap-2 flex flex-col">
+		<div className="md:col-span-3 gap-2 p-2 flex flex-col">
 			{programmes.length === 0 ? (
 				<p className="text-white">{t('epgList.noInformationAvailable')}</p>
 			) : (
@@ -39,7 +41,7 @@ export const EPGList: React.FC<Props> = ({
 						!isNaN(start) && !isNaN(stop) && now >= start && now <= stop;
 
 					return (
-						<div
+						<Button
 							key={p.title + p.start}
 							ref={el => {
 								itemRefs.current[index] = el;
@@ -47,17 +49,22 @@ export const EPGList: React.FC<Props> = ({
 							}}
 							tabIndex={index === focusIndex ? 0 : -1}
 							onKeyDown={handleKeyDown}
-							className="border rounded-md p-2 flex flex-row items-center gap-4 relative"
+							className="p-2 flex flex-row items-center justify-start gap-4 w-full h-10 cursor-pointer bg-transparent focus:bg-transparent relative"
 						>
 							{isCurrent && (
 								<span className="absolute top-1 left-1 w-2 h-2 rounded-full bg-red-500" />
 							)}
-							<span className="text-white">
+							<span
+								className={`${index === focusIndex ? 'text-white' : 'text-[#a9a9a9]'}`}
+							>
 								{formatTime(p.start)} - {formatTime(p.stop)}
 							</span>
-							<span className="font-medium text-white">{p.title}</span>
-							{/* <span className="text-xs text-white">{p.desc}</span> */}
-						</div>
+							<span
+								className={`${index === focusIndex ? 'text-white' : 'text-[#a9a9a9]'}`}
+							>
+								{p.title}
+							</span>
+						</Button>
 					);
 				})
 			)}

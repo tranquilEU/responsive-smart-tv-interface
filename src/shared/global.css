@@ -130,3 +130,13 @@
 .scrollbar-hidden::-webkit-scrollbar {
 	display: none; /* Chrome, Safari, Opera */
 }
+
+html,
+body {
+	color: #a9a9a9;
+}
+
+button {
+	cursor: pointer;
+	border-radius: 0px;
+}
