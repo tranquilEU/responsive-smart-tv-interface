@@ -6,6 +6,7 @@ import { Button } from '@/shared/components/ui/button';
 import { useArrowNavigation } from '@/shared/hooks/useArrowNavigation';
 
 import { formatTime } from '@/shared/helpers/formatTime';
+import { useEPGStore } from '@/shared/store';
 import { Programme } from '@/shared/types/types';
 
 type Props = {
@@ -20,6 +21,7 @@ export const EPGList: React.FC<Props> = ({
 	firstItemRef
 }) => {
 	const { t } = useTranslation('translation');
+	const setCurrentStream = useEPGStore(s => s.setCurrentStream);
 
 	const items = programmes.map(p => ({ id: p.start + p.title }));
 	const { focusIndex, handleKeyDown, itemRefs } = useArrowNavigation(
@@ -53,7 +55,15 @@ export const EPGList: React.FC<Props> = ({
 						if (index === 0 && el) firstItemRef.current = el;
 					}}
 					tabIndex={index === focusIndex ? 0 : -1}
-					onKeyDown={handleKeyDown}
+					onKeyDown={e => {
+						handleKeyDown(e);
+						if (e.key === 'Enter') {
+							setCurrentStream(p.streamURL);
+						}
+					}}
+					onClick={() => {
+						setCurrentStream(p.streamURL);
+					}}
 					className="flex flex-row items-center justify-start w-full h-10 bg-transparent focus:bg-transparent relative"
 				>
 					{isCurrent && (

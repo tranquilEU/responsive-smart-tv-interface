@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
 import shaka from 'shaka-player';
 
-interface UseBackgroundVideoOptions {
-	videoRef: React.RefObject<HTMLVideoElement | null>;
-	streamUrl: string;
-	licenseServer: string;
-}
+import { DRM_LICENSE_SERVER } from '@/shared/constants';
 
-export const useBackgroundVideo = ({
-	videoRef,
-	streamUrl,
-	licenseServer
-}: UseBackgroundVideoOptions) => {
+import { useEPGStore } from '@/shared/store';
+
+export function useBackgroundVideo(
+	videoRef: RefObject<HTMLVideoElement | null>
+) {
+	const currentStream = useEPGStore(s => s.currentStream);
+
 	useEffect(() => {
+		if (!videoRef.current) return;
+
 		shaka.polyfill.installAll();
 
 		if (!shaka.Player.isBrowserSupported()) {
@@ -21,14 +21,12 @@ export const useBackgroundVideo = ({
 		}
 
 		const video = videoRef.current;
-		if (!video) return;
-
 		const player = new shaka.Player(video);
 
 		player.configure({
 			drm: {
 				servers: {
-					'com.widevine.alpha': licenseServer
+					'com.widevine.alpha': DRM_LICENSE_SERVER
 				}
 			}
 		});
@@ -38,12 +36,12 @@ export const useBackgroundVideo = ({
 		video.playsInline = true;
 
 		player
-			.load(streamUrl)
+			.load(currentStream)
 			.then(() => video.play().catch(() => {}))
 			.catch(err => console.error('Load error:', err));
 
 		return () => {
 			player.destroy().catch(() => {});
 		};
-	}, [videoRef, streamUrl, licenseServer]);
-};
+	}, [videoRef, currentStream]);
+}

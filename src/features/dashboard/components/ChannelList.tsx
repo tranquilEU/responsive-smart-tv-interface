@@ -6,6 +6,7 @@ import { Button } from '@/shared/components/ui/button';
 
 import { useArrowNavigation } from '@/shared/hooks/useArrowNavigation';
 
+import { useEPGStore } from '@/shared/store';
 import { Channel } from '@/shared/types/types';
 
 type Props = {
@@ -23,6 +24,8 @@ export const ChannelList: React.FC<Props> = ({
 	onPanelSwitch,
 	firstItemRef
 }) => {
+	const setCurrentStream = useEPGStore(s => s.setCurrentStream);
+
 	const { focusIndex, handleKeyDown, itemRefs } = useArrowNavigation(
 		channels,
 		onSelectChannel,
@@ -50,8 +53,16 @@ export const ChannelList: React.FC<Props> = ({
 						if (index === 0 && el) firstItemRef.current = el;
 					}}
 					tabIndex={index === focusIndex ? 0 : -1}
-					onKeyDown={handleKeyDown}
-					onClick={() => onSelectChannel(ch.id)}
+					onKeyDown={e => {
+						handleKeyDown(e);
+						if (e.key === 'Enter') {
+							setCurrentStream(ch.streamURL);
+						}
+					}}
+					onClick={() => {
+						onSelectChannel(ch.id);
+						setCurrentStream(ch.streamURL);
+					}}
 				>
 					<div className="flex items-center justify-start gap-2 w-full">
 						<div className="w-10 h-10 flex items-center justify-center rounded">

@@ -1,4 +1,10 @@
-export type Channel = { id: string; name: string; url: string; icon: string };
+export type Channel = {
+	id: string;
+	name: string;
+	url: string;
+	icon: string;
+	streamURL: string;
+};
 
 export type Programme = {
 	channelId: string;
@@ -6,6 +12,7 @@ export type Programme = {
 	stop: string;
 	title: string;
 	desc: string;
+	streamURL: string;
 };
 
 export type NormalizedChannel = Channel & { programmes: Programme[] };
