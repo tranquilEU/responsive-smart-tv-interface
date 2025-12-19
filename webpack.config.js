@@ -43,7 +43,7 @@ module.exports = {
 			// Use Babel for TS + JS
 			{
 				test: /\.(ts|tsx|js)$/,
-				exclude: /node_modules/,
+				exclude: /node_modules\/(?!.*)/,
 				use: {
 					loader: 'babel-loader'
 				}
