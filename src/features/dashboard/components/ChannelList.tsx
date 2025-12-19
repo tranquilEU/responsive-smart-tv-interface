@@ -67,13 +67,7 @@ export const ChannelList: React.FC<Props> = ({
 				>
 					<div className="flex items-center justify-start gap-2 w-full">
 						<div className="w-10 h-10 flex items-center justify-center rounded">
-							<ChannelImage
-								src={ch.icon}
-								alt={ch.name}
-								fallback={
-									<span className="text-sm font-bold">{ch.name[0]}</span>
-								}
-							/>
+							<ChannelImage src={ch.icon} alt={ch.name} />
 						</div>
 						<span>{index + 1}</span>
 						<span className="truncate">{ch.name}</span>

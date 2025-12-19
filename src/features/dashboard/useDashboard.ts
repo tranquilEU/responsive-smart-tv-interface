@@ -2,13 +2,11 @@ import { useMemo, useRef, useState } from 'react';
 
 import { useEPG } from '@/shared/hooks/useEPG';
 
-import { EPG_URL } from '@/shared/constants';
-
 import { useEPGStore } from '@/shared/store';
 import { NormalizedChannel, Programme } from '@/shared/types/types';
 
 export const useDashboardLogic = () => {
-	const { isLoading } = useEPG(EPG_URL);
+	const { isLoading } = useEPG();
 	const channels = useEPGStore(s => s.channels);
 
 	const availableDates = useMemo(

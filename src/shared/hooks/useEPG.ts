@@ -17,7 +17,7 @@ const fetchEPG = async (): Promise<any> => {
 	return xmlToJson(xmlDoc.documentElement);
 };
 
-export const useEPG = (url: string) => {
+export const useEPG = () => {
 	const setChannels = useEPGStore(s => s.setChannels);
 	return useQuery({
 		queryKey: ['epg'],

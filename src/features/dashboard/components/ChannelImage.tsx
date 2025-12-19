@@ -6,14 +6,12 @@ type ChannelImageProps = {
 	src: string;
 	alt: string;
 	size?: number;
-	fallback?: React.ReactNode;
 };
 
 export const ChannelImage: React.FC<ChannelImageProps> = ({
 	src,
 	alt,
-	size = 40,
-	fallback = <div className="bg-gray-300 rounded-full w-full h-full" />
+	size = 40
 }) => {
 	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(false);
