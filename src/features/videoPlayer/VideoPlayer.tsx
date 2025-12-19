@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 
-import { useBackgroundVideo } from '@/features/backgroundVideo/useBackgroundVideo';
+import { useVideoPlayer } from '@/features/videoPlayer/useVideoPlayer';
 
-export const BackgroundVideo: React.FC = () => {
+export const VideoPlayer: React.FC = () => {
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 
-	useBackgroundVideo(videoRef);
+	useVideoPlayer(videoRef);
 
 	return (
 		<video

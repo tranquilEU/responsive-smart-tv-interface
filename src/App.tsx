@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { BackgroundVideo } from '@/features/backgroundVideo/BackgroundVideo';
 import { Dashboard } from '@/features/dashboard/Dashboard';
+import { VideoPlayer } from '@/features/videoPlayer/VideoPlayer';
 
 const App: React.FC = () => {
 	return (
 		<div className="relative min-h-screen overflow-hidden">
-			<BackgroundVideo />
+			<VideoPlayer />
 
 			{/* Blur overlay */}
 			<div className="fixed inset-0 backdrop-blur-sm -z-5"></div>

@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import { EPG_URL, PROXY_SERVER_URL } from '@/shared/constants';
 
-import { mapProgrammesToChannels } from '@/shared/utils/mapProgrammesToChannels';
 import { xmlToJson } from '@/shared/utils/xmlToJson';
 
+import { mapProgrammesToChannels } from '@/shared/services/mapProgrammesToChannels';
 import { useEPGStore } from '@/shared/store';
 
 const fetchEPG = async (): Promise<any> => {
 	const response = await fetch(
-		`${PROXY_SERVER_URL}/proxy?url=${encodeURIComponent(EPG_URL)}`
+		`${PROXY_SERVER_URL ?? ''}/proxy?url=${encodeURIComponent(EPG_URL ?? '')}`
 	);
 	const text = await response.text();
 	const parser = new DOMParser();

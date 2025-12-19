@@ -14,7 +14,7 @@ type EPGState = {
 
 export const useEPGStore = create<EPGState>(set => ({
 	channels: [],
-	currentStream: DEFAULT_STREAM_URL,
+	currentStream: DEFAULT_STREAM_URL || '',
 	setChannels: channels => set({ channels }),
 	setCurrentStream: currentStream => set({ currentStream }),
 	clear: () => set({ channels: [] })

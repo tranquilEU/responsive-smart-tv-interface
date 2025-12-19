@@ -5,9 +5,7 @@ import { DRM_LICENSE_SERVER } from '@/shared/constants';
 
 import { useEPGStore } from '@/shared/store';
 
-export function useBackgroundVideo(
-	videoRef: RefObject<HTMLVideoElement | null>
-) {
+export function useVideoPlayer(videoRef: RefObject<HTMLVideoElement | null>) {
 	const currentStream = useEPGStore(s => s.currentStream);
 
 	useEffect(() => {
