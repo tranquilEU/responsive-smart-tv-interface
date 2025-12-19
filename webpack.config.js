@@ -1,6 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 module.exports = {
 	entry: './src/index.tsx',
@@ -70,6 +74,27 @@ module.exports = {
 	},
 
 	plugins: [
+		new webpack.DefinePlugin({
+			'process.env.EPG_URL': JSON.stringify(process.env.EPG_URL),
+			'process.env.PROXY_SERVER_URL': JSON.stringify(
+				process.env.PROXY_SERVER_URL
+			),
+			'process.env.DEFAULT_STREAM_URL': JSON.stringify(
+				process.env.DEFAULT_STREAM_URL
+			),
+			'process.env.DRM_LICENSE_SERVER': JSON.stringify(
+				process.env.DRM_LICENSE_SERVER
+			),
+			'process.env.ANGEL_ONE_STREAM_URL': JSON.stringify(
+				process.env.ANGEL_ONE_STREAM_URL
+			),
+			'process.env.TEARS_OF_STEEL_STREAM_URL': JSON.stringify(
+				process.env.TEARS_OF_STEEL_STREAM_URL
+			),
+			'process.env.BIG_BUCK_BUNNY_STREAM_URL': JSON.stringify(
+				process.env.BIG_BUCK_BUNNY_STREAM_URL
+			)
+		}),
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
 			favicon: './public/favicon.png'

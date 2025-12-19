@@ -8,14 +8,15 @@ export const mapProgrammesToChannels = (data: any): NormalizedChannel[] => {
 	const channels: Record<string, Channel> = {};
 
 	data.channel.forEach((ch: any) => {
-		const randomStream = STREAMS[Math.floor(Math.random() * STREAMS.length)];
+		const randomStream =
+			STREAMS[Math.floor(Math.random() * STREAMS.length)] ?? '';
 		const id = ch['@attributes'].id;
 		channels[id] = {
 			id,
 			name: ch['display-name']['#text'],
 			url: ch.url?.['#text'] ?? '',
 			icon: ch.icon?.['@attributes']?.src ?? '',
-			streamURL: randomStream.url
+			streamURL: randomStream
 		};
 	});
 
@@ -25,7 +26,8 @@ export const mapProgrammesToChannels = (data: any): NormalizedChannel[] => {
 	});
 
 	data.programme.forEach((prog: any) => {
-		const randomStream = STREAMS[Math.floor(Math.random() * STREAMS.length)];
+		const randomStream =
+			STREAMS[Math.floor(Math.random() * STREAMS.length)] ?? '';
 		const channelId = prog['@attributes'].channel;
 		const programme: Programme = {
 			channelId,
@@ -33,7 +35,7 @@ export const mapProgrammesToChannels = (data: any): NormalizedChannel[] => {
 			stop: normalizeProgrammeTime(prog['@attributes'].stop),
 			title: prog.title?.['#text'] ?? '',
 			desc: prog.desc?.['#text'] ?? '',
-			streamURL: randomStream.url
+			streamURL: randomStream
 		};
 		if (normalized[channelId]) {
 			normalized[channelId].programmes.push(programme);
