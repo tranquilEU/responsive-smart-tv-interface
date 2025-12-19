@@ -1,8 +1,10 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"jsx": "react-jsx",
+		"target": "es5",
+		"module": "commonjs",
+		"jsx": "react",
+		"lib": ["dom", "es5", "es2015.promise"],
+		"downlevelIteration": false,
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"moduleResolution": "node",

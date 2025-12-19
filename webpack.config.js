@@ -7,7 +7,16 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		clean: true,
-		filename: 'bundle.js'
+		filename: 'bundle.js',
+
+		// Prevent Webpack from emitting ES6+ syntax
+		environment: {
+			arrowFunction: false,
+			const: false,
+			destructuring: false,
+			forOf: false,
+			module: false
+		}
 	},
 
 	resolve: {
@@ -26,11 +35,15 @@ module.exports = {
 
 	module: {
 		rules: [
+			// Use Babel for TS + JS
 			{
-				test: /\.tsx?$/,
-				use: 'ts-loader',
-				exclude: /node_modules/
+				test: /\.(ts|tsx|js)$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader'
+				}
 			},
+
 			{
 				test: /\.css$/i,
 				use: [
@@ -39,30 +52,17 @@ module.exports = {
 					{ loader: 'postcss-loader' }
 				]
 			},
+
 			{
 				test: /\.(png|jpe?g|gif)$/i,
-				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							name: '[name].[ext]',
-							outputPath: 'images'
-						}
-					}
-				]
-			},
-			{
-				test: /\.(?:js|mjs|cjs)$/,
-				exclude: /node_modules/,
-				use: {
-					loader: 'babel-loader',
-					options: {
-						presets: [['@babel/preset-env']]
-					}
+				type: 'asset/resource',
+				generator: {
+					filename: 'images/[name][ext]'
 				}
 			},
+
 			{
-				test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+				test: /\.(eot|svg|ttf|woff|woff2)$/i,
 				type: 'asset'
 			}
 		]

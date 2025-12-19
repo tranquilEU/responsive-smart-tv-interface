@@ -1,0 +1,20 @@
+{
+	"presets": [
+		[
+			"@babel/preset-env",
+			{
+				"targets": { "chrome": "20" },
+				"useBuiltIns": "usage",
+				"corejs": "3",
+				"modules": "commonjs"
+			}
+		],
+		"@babel/preset-typescript",
+		[
+			"@babel/preset-react",
+			{
+				"runtime": "automatic"
+			}
+		]
+	]
+}
