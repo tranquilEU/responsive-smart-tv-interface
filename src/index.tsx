@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client';
 
 import App from './App';
 import './shared/global.css';
-import './shared/i18n/i18n';
 
 const queryClient = new QueryClient();
 

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Skeleton } from '@/shared/components/ui/skeleton';
 
 export const ChannelRowSkeleton = () => (

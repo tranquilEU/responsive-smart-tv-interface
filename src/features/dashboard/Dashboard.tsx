@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { ChannelList } from '@/features/dashboard/components/ChannelList';
 import { DatePickerList } from '@/features/dashboard/components/DatePickerList';
 import { EPGList } from '@/features/dashboard/components/EPGList';

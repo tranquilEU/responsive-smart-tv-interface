@@ -1,3 +1,4 @@
+import React from 'react';
 import { AutoSizer, List } from 'react-virtualized';
 
 import { Button } from '@/shared/components/ui/button';

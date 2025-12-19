@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import React from 'react';
 import { AutoSizer, List } from 'react-virtualized';
 
 import { Button } from '@/shared/components/ui/button';
@@ -20,7 +20,6 @@ export const EPGList: React.FC<Props> = ({
 	onPanelSwitch,
 	firstItemRef
 }) => {
-	const { t } = useTranslation('translation');
 	const setCurrentStream = useEPGStore(s => s.setCurrentStream);
 
 	const items = programmes.map(p => ({ id: p.start + p.title }));
@@ -91,7 +90,7 @@ export const EPGList: React.FC<Props> = ({
 	return (
 		<div className="md:col-span-3 p-2 h-full">
 			{programmes.length === 0 ? (
-				<p className="text-white">{t('epgList.noInformationAvailable')}</p>
+				<p className="text-white">{'No Information Available'}</p>
 			) : (
 				<AutoSizer>
 					{({ height, width }) => (
