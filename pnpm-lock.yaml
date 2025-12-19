@@ -47,6 +47,9 @@ importers:
       react-virtualized:
         specifier: ^9.22.6
         version: 9.22.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      shaka-player:
+        specifier: ^4.16.12
+        version: 4.16.12
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -2848,6 +2851,10 @@ packages:
 
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
+
+  shaka-player@4.16.12:
+    resolution: {integrity: sha512-bUne2YBbpMId8tU9kPSeZWSJHKbt2t5XyH3all6OsReRrfFYP9apOgohInbaDXNd0T/S8hUgWQT+wqLKH41XJg==}
+    engines: {node: '>=18'}
 
   shallow-clone@3.0.1:
     resolution: {integrity: sha512-/6KqX+GVUdqPuPPd2LxDDxzX6CAbjJehAAOKlNpqqUpAqPM6HeL8f+o3a+JsyGjn2lv0WY8UsTgUJjU9Ok55NA==}
@@ -6088,6 +6095,8 @@ snapshots:
   setprototypeof@1.1.0: {}
 
   setprototypeof@1.2.0: {}
+
+  shaka-player@4.16.12: {}
 
   shallow-clone@3.0.1:
     dependencies:

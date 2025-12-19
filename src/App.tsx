@@ -1,12 +1,23 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
+import { BackgroundVideo } from '@/features/backgroundVideo/BackgroundVideo';
 import { Dashboard } from '@/features/dashboard/Dashboard';
 
 const App: React.FC = () => {
 	return (
-		<Fragment>
-			<Dashboard />
-		</Fragment>
+		<div className="relative min-h-screen overflow-hidden">
+			<BackgroundVideo />
+
+			{/* Blur overlay */}
+			<div className="fixed inset-0 backdrop-blur-sm -z-5"></div>
+
+			{/* Dark gradient overlay */}
+			<div className="fixed inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 -z-5"></div>
+
+			<div className="relative z-10">
+				<Dashboard />
+			</div>
+		</div>
 	);
 };
 

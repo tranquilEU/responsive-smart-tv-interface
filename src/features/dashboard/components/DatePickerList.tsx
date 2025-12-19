@@ -52,7 +52,7 @@ export const DatePickerList: React.FC<Props> = ({
 			<div key={key} style={style}>
 				<Button
 					variant={isSelected ? 'default' : 'ghost'}
-					className="flex items-center relative w-14 h-10 bg-transparent focus:bg-transparent"
+					className="flex items-center relative w-10 h-10 bg-transparent focus:bg-transparent"
 					ref={el => {
 						itemRefs.current[index] = el;
 						if (index === 0 && el) firstItemRef.current = el;

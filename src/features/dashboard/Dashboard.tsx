@@ -27,7 +27,7 @@ export const Dashboard: React.FC = () => {
 	} = useDashboardLogic();
 
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-6 gap-4 p-4 bg-primary/75 h-screen overflow-hidden">
+		<div className="grid grid-cols-1 md:grid-cols-6 gap-4 p-4 h-screen overflow-hidden">
 			<div className="md:col-span-2">
 				{isLoading ? (
 					<AutoFillSkeleton itemHeight={48} RowSkeleton={ChannelRowSkeleton} />
