@@ -11,14 +11,18 @@ import { Programme } from '@/shared/types/types';
 
 type Props = {
 	programmes: Programme[];
-	onPanelSwitch: (direction: 'left' | 'right') => void;
+	selectedProgramme: Programme | null;
 	firstItemRef: React.MutableRefObject<HTMLElement | null>;
+	onSelectedProgramme: (programme: Programme | null) => void;
+	onPanelSwitch: (direction: 'left' | 'right') => void;
 };
 
 export const EPGList: React.FC<Props> = ({
 	programmes,
 	onPanelSwitch,
-	firstItemRef
+	firstItemRef,
+	selectedProgramme,
+	onSelectedProgramme
 }) => {
 	const setCurrentStream = useEPGStore(s => s.setCurrentStream);
 
@@ -43,8 +47,12 @@ export const EPGList: React.FC<Props> = ({
 		const p = programmes[index];
 		const start = new Date(p.start).getTime();
 		const stop = new Date(p.stop).getTime();
-		const isCurrent =
+		const isCurrentTime =
 			!isNaN(start) && !isNaN(stop) && now >= start && now <= stop;
+		const isSelectedProgramme =
+			selectedProgramme?.title === p.title &&
+			selectedProgramme?.start === p.start &&
+			selectedProgramme?.stop === p.stop;
 
 		return (
 			<div key={key} style={style}>
@@ -58,37 +66,31 @@ export const EPGList: React.FC<Props> = ({
 						handleKeyDown(e);
 						if (e.key === 'Enter') {
 							setCurrentStream(p.streamURL);
+							onSelectedProgramme(p);
 						}
 					}}
 					onClick={() => {
 						setCurrentStream(p.streamURL);
+						onSelectedProgramme(p);
 					}}
-					className="flex flex-row items-center justify-start w-full h-10 bg-transparent focus:bg-transparent relative"
+					className={`flex flex-row items-center justify-start w-full h-14 bg-primary/50 relative 
+						${isSelectedProgramme ? 'bg-primary/90 text-white' : 'bg-primary/50 text-[#a9a9a9]'}
+						`}
 				>
-					{isCurrent && (
+					{isCurrentTime && (
 						<span className="absolute top-1 left-1 w-2 h-2 rounded-full bg-red-500" />
 					)}
-					<span
-						className={`${
-							index === focusIndex ? 'text-white' : 'text-[#a9a9a9]'
-						}`}
-					>
+					<span>
 						{formatTime(p.start)} - {formatTime(p.stop)}
 					</span>
-					<span
-						className={`${
-							index === focusIndex ? 'text-white' : 'text-[#a9a9a9]'
-						}`}
-					>
-						{p.title}
-					</span>
+					<span>{p.title}</span>
 				</Button>
 			</div>
 		);
 	};
 
 	return (
-		<div className="md:col-span-3 p-2 h-full">
+		<div className="p-2 h-full min-h-0">
 			{programmes.length === 0 ? (
 				<p className="text-white">{'No Information Available'}</p>
 			) : (

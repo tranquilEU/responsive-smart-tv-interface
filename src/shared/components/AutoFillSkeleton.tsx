@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 type AutoFillSkeletonProps = {
 	itemHeight: number;
@@ -10,21 +9,27 @@ export const AutoFillSkeleton: React.FC<AutoFillSkeletonProps> = ({
 	itemHeight,
 	RowSkeleton
 }) => {
+	const containerRef = useRef<HTMLDivElement | null>(null);
 	const [count, setCount] = useState(0);
 
 	useEffect(() => {
 		const updateCount = () => {
-			const vh = window.innerHeight;
-			setCount(Math.ceil(vh / itemHeight));
+			if (!containerRef.current) return;
+
+			const height = containerRef.current.clientHeight;
+			setCount(Math.ceil(height / itemHeight));
 		};
 
 		updateCount();
-		window.addEventListener('resize', updateCount);
-		return () => window.removeEventListener('resize', updateCount);
+
+		const observer = new ResizeObserver(updateCount);
+		if (containerRef.current) observer.observe(containerRef.current);
+
+		return () => observer.disconnect();
 	}, [itemHeight]);
 
 	return (
-		<div className="space-y-2 p-2">
+		<div ref={containerRef} className="space-y-2 p-2 h-full min-h-0">
 			{Array.from({ length: count }).map((_, i) => (
 				<RowSkeleton key={i} />
 			))}

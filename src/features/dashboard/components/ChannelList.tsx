@@ -13,9 +13,9 @@ import { Channel } from '@/shared/types/types';
 type Props = {
 	channels: Channel[];
 	selectedChannel: string;
+	firstItemRef: React.MutableRefObject<HTMLElement | null>;
 	onSelectChannel: (id: string) => void;
 	onPanelSwitch: (direction: 'left' | 'right') => void;
-	firstItemRef: React.MutableRefObject<HTMLElement | null>;
 };
 
 export const ChannelList: React.FC<Props> = ({
@@ -48,7 +48,7 @@ export const ChannelList: React.FC<Props> = ({
 				<Button
 					variant={selectedChannel === ch.id ? 'default' : 'ghost'}
 					size="lg"
-					className="items-center w-full h-10 bg-transparent focus:bg-transparent"
+					className="items-center w-full h-14"
 					ref={el => {
 						itemRefs.current[index] = el;
 						if (index === 0 && el) firstItemRef.current = el;
@@ -70,7 +70,7 @@ export const ChannelList: React.FC<Props> = ({
 							<ChannelImage src={ch.icon} alt={ch.name} />
 						</div>
 						<span>{index + 1}</span>
-						<span className="truncate">{ch.name}</span>
+						<span className="truncate text-sm sm:text-base">{ch.name}</span>
 					</div>
 				</Button>
 			</div>
@@ -78,7 +78,7 @@ export const ChannelList: React.FC<Props> = ({
 	};
 
 	return (
-		<div className="md:col-span-2 p-2 h-full">
+		<div className="p-2 h-full min-h-0">
 			<AutoSizer>
 				{({ height, width }) => (
 					<List

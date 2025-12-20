@@ -20,6 +20,8 @@ export const Dashboard: React.FC = () => {
 		setSelectedDate,
 		selectedChannel,
 		setSelectedChannel,
+		selectedProgramme,
+		setSelectedProgramme,
 		isLoading,
 		programmes,
 		handlePanelSwitch,
@@ -29,8 +31,8 @@ export const Dashboard: React.FC = () => {
 	} = useDashboardLogic();
 
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-6 gap-4 p-4 h-screen overflow-hidden">
-			<div className="md:col-span-2">
+		<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 p-4 h-screen overflow-hidden">
+			<div className="col-span-1 lg:col-span-2 h-full min-h-0">
 				{isLoading ? (
 					<AutoFillSkeleton itemHeight={48} RowSkeleton={ChannelRowSkeleton} />
 				) : (
@@ -43,7 +45,7 @@ export const Dashboard: React.FC = () => {
 					/>
 				)}
 			</div>
-			<div className="md:col-span-1">
+			<div className="col-span-1 lg:col-span-1 h-full min-h-0">
 				{isLoading ? (
 					<AutoFillSkeleton itemHeight={48} RowSkeleton={DateRowSkeleton} />
 				) : (
@@ -56,12 +58,14 @@ export const Dashboard: React.FC = () => {
 					/>
 				)}
 			</div>
-			<div className="md:col-span-3">
+			<div className="col-span-1 sm:col-span-2 lg:col-span-3 h-full min-h-0">
 				{isLoading ? (
 					<AutoFillSkeleton itemHeight={48} RowSkeleton={EPGRowSkeleton} />
 				) : (
 					<EPGList
 						programmes={programmes}
+						selectedProgramme={selectedProgramme}
+						onSelectedProgramme={setSelectedProgramme}
 						onPanelSwitch={handlePanelSwitch}
 						firstItemRef={epgFirstRef}
 					/>

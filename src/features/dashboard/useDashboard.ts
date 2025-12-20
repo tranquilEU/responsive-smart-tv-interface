@@ -19,11 +19,14 @@ export const useDashboardLogic = () => {
 		[channels]
 	);
 
+	const [selectedChannel, setSelectedChannel] = useState<string>(
+		channels[0]?.id ?? ''
+	);
 	const [selectedDate, setSelectedDate] = useState<string>(
 		availableDates[0] ?? ''
 	);
-	const [selectedChannel, setSelectedChannel] = useState<string>(
-		channels[0]?.id ?? ''
+	const [selectedProgramme, setSelectedProgramme] = useState<Programme | null>(
+		null
 	);
 
 	const selectedChannelData: NormalizedChannel | undefined = useMemo(
@@ -68,6 +71,8 @@ export const useDashboardLogic = () => {
 		setSelectedDate,
 		selectedChannel,
 		setSelectedChannel,
+		selectedProgramme,
+		setSelectedProgramme,
 		isLoading,
 		programmes,
 		activePanel,
